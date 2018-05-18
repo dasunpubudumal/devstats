@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DEVSTATS</title>
+  <base href="/">
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .Aligner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .Aligner-item {
+      max-width: 50%;
+    }
+
+    .Aligner-item--top {
+      align-self: flex-start;
+    }
+
+    .Aligner-item--bottom {
+      align-self: flex-end;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+  </style>
+
+  <!-- Optionally, include the theme (if you don't want to struggle to write the CSS) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.rawgit.com/IonicaBizau/github-calendar/gh-pages/dist/github-calendar.css"
+  />
+</head>
+<body>
+<app-root></app-root>
+    <script>
+      $(document).ready(function(){
+        $('ul.tabs').tabs();
+        $('.modal').modal();
+      });
+    </script>
+
+</body>
+</html>

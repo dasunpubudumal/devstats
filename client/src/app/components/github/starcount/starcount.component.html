@@ -1,0 +1,12 @@
+<div *ngIf="hasData">
+  <canvas
+    baseChart
+    [chartType]="'doughnut'"
+    [datasets]="chart"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    [legend]="true"
+    [colors]="chartColors"
+    (chartClick)="onChartClick($event)">
+  </canvas>
+</div>

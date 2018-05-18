@@ -1,0 +1,26 @@
+<div *ngIf="bool">
+  <div AgWordCloud
+       #word_cloud_chart=ag-word-cloud
+       [wordData]="myWordData"
+       [options]="options"
+       [color]="colors">
+  </div>
+  <span class="light center-align"><p>This is a random cloud of tags favored by {{username}}.</p></span>
+</div>
+
+<div class="center-align">
+  <div *ngIf="!bool" style="">
+    <br /> <br /> <br />
+    <div class="preloader-wrapper big active" align="middle">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

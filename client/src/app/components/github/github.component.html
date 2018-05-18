@@ -1,0 +1,131 @@
+<div style="padding-left: 10px; margin-top: 5%;">
+
+  <app-error></app-error>
+
+ <!--Search input-->
+  <div class="container input-field col s6" style="width: 40%">
+    <i class="material-icons prefix">account_circle</i>
+    <input id="icon_prefix" type="text" [(ngModel)]="username" name="username" (keyup.enter) = "get(); test(); openModal()" autofocus autocomplete="off">
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal blue darken-3 white-text" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+    <div class="modal-content">
+      <div class="valign-wrapper"><h4><i class="medium material-icons">info</i> Please wait a little while..</h4></div>
+      <h5 class="light">Fetching data from <strong>GitHub</strong> is sometimes a heavy operation.</h5>
+    </div>
+    <div class="modal-footer blue darken-4">
+      <a class="waves-effect waves-green btn-flat white-text" (click)="closeModal()">Okay</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col xl2 l2 m12 s12 card hoverable">
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" src="{{githubUser.avatar_url}}">
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4"><p class="left-align">{{githubUser.name}}</span>
+        <div class="">
+          <a class="waves-effect waves-light btn blue accent-4" href="{{githubUser.html_url}}" target="_blank">Profile</a>
+        </div>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{githubUser.name}}<i class="material-icons right">close</i></span>
+        <p class="left-align">{{githubUser.bio}}</p>
+      </div>
+    </div>
+    <div class="col xl10 l10 m12 s12">
+      <div class="row" *ngIf="githubUser.bio">
+        <blockquote><p class="flow-text center-align">"{{githubUser.bio}}"</p></blockquote>
+      </div>
+      <div align="">
+        <app-contributionschart [username] ="username" ></app-contributionschart>
+      </div>
+    </div>
+  </div>
+
+  <!--User Card-->
+  <div class="row">
+    <div class="col s12 m12 l4 xl4">
+      <ul class="collection hoverable">
+        <li class="collection-item avatar" *ngIf="githubUser.location">
+          <i class="material-icons circle indigo">location_city</i>
+          <span class="title"><p class="left-align"><strong>From</strong></p></span>
+          <p class="left-align" style="color:dimgrey">{{githubUser.location}}</p>
+        </li>
+        <li class="collection-item avatar" *ngIf="githubUser.email">
+          <i class="material-icons circle blue">email</i>
+          <span class="title"><strong><p class="left-align">Email</p></strong></span>
+          <p class="left-align" style="color: dimgrey;">{{githubUser.email}}</p>
+        </li>
+        <li class="collection-item avatar" *ngIf="githubUser.company">
+          <i class="material-icons circle green">work</i>
+          <span class="title"><strong><p class="left-align">Company</p></strong></span>
+          <p class="left-align" style="color: dimgrey">{{githubUser.company}}</p>
+        </li>
+        <li class="collection-item avatar" *ngIf="githubUser.blog">
+          <i class="material-icons circle red">web</i>
+          <span class="title"><strong><p class="left-align">Blog</p></strong></span>
+          <p class="left-align" style="color: dimgrey"><a href="{{githubUser.blog}}" target="_blank">{{githubUser.blog}}</a></p>
+        </li>
+        <li class="collection-item avatar" *ngIf="githubUser.public_repos || githubUser.public_gists">
+          <i class="material-icons circle teal">trending_up</i>
+          <span class="title"><strong><p class="left-align">Repos and Gists</p></strong></span>
+          <p class="left-align" style="color: dimgrey">Public Repos: {{githubUser.public_repos}}</p>
+          <p class="left-align" style="color: dimgrey">Public Gists: {{githubUser.public_gists}}</p>
+        </li>
+        <li class="collection-item avatar" *ngIf="githubUser.followers || githubUser.following">
+          <i class="material-icons circle purple">stars</i>
+          <span class="title"><strong><p class="left-align">Followers and Following</p></strong></span>
+          <p class="left-align" style="color: dimgrey">Followers: {{githubUser.followers}}</p>
+          <p class="left-align" style="color: dimgrey">Following: {{githubUser.following}}</p>
+        </li>
+        <li class="collection-item avatar" *ngIf="githubUser.created_at">
+          <i class="material-icons circle deep-orange">assignment_ind</i>
+          <span class="title"><strong><p class="left-align">Signed Up for Github on</p></strong></span>
+          <p class="left-align" style="color: dimgrey">{{githubUser.created_at | date:'longDate'}}</p>
+        </li>
+      </ul>
+    </div>
+
+    <!--Charts-->
+    <div class="col s12 m12 l8 xl8" *ngIf="prog">
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <app-chart [repos]="repos" [githubUser]="githubUser" [username]="username"></app-chart>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <app-commits [username]="username"></app-commits>
+        </div>
+      </div>
+      <br /><br />
+      <div class="row">
+        <div class="col s12 m12 l6 xl6">
+          <app-starcount [username]="username"></app-starcount>
+        </div>
+        <div class="col s12 m12 l6 xl6">
+          <app-forks [username]="username"></app-forks>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col s4">
+      <app-watchers [username]="username"></app-watchers>
+    </div>
+    <div class="col s4">
+      <app-issues [username]="username"></app-issues>
+    </div>
+    <div class="col s4">
+      <app-organizations [username]="username"></app-organizations>
+    </div>
+  </div>
+
+  <!--How to-->
+  <app-howto></app-howto>
+
+
+</div>
