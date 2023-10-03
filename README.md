@@ -61,6 +61,8 @@ public class Configuration {
 ```
 You must get a personal access token from github.
 
+**Note**: This must be improved to fetch configurations from a cloud configuration store at runtime. Storing configurations within the codebase is a severe vulnerability.
+
 8. Create a `CacheConfig` class and add this this bean configuration for server side caching.
 
 ```java
